@@ -101,14 +101,12 @@
     margin-right: 4px; flex-shrink: 0;
   }
   
-  /* 슬라이더와 텍스트 박스 간격 소폭 축소 (6px -> 4px) */
-  .slider-control { display: flex; align-items: center; gap: 4px; }
+  .slider-control { display: flex; align-items: center; gap: 6px; }
   
   input[type="range"] {
     -webkit-appearance: none; appearance: none;
     flex: 1; height: 3px; background: transparent;
     border-radius: 999px; outline: none;
-    min-width: 0; /* 넘침 방지 */
   }
   input[type="range"]::-webkit-slider-runnable-track {
     height: 3px;
@@ -121,10 +119,9 @@
     margin-top: -8.5px;
   }
 
-  /* 금액 텍스트 박스 폭 축소 및 중앙 정렬 적용 */
   .slider-value {
     font-size: 11px; font-weight: var(--fw-medium);
-    width: 56px; flex-shrink: 0; text-align: center;
+    width: 68px; flex-shrink: 0; text-align: right;
     background: var(--surface-container); color: var(--on-surface-default);
     padding: 4px 6px; border-radius: 6px;
     border: 1px solid rgba(128,128,128,0.2);
@@ -144,9 +141,7 @@
     .center-val { font-size: 28px; }
     .slider-label { font-size: 11px; }
     .breakdown-title { font-size: 15px; }
-    /* 모바일에서 금액 박스 폭 대폭 축소 (62px -> 48px), 그리드 간격 좁힘 */
-    .slider-value { font-size: 10px; width: 48px; padding: 4px 2px; }
-    .slider-grid { gap: 12px 6px; } 
+    .slider-value { font-size: 10px; width: 62px; padding: 4px; }
   }
 </style>
 </head>
@@ -176,20 +171,20 @@
 </div>
 
 <script>
-  // 사용자 설정 데이터
+  // 사용자 설정 데이터 주입
   const injectedData = {
     "heroMode": "total_income",
     "labels": { "currencySymbol": "₩" },
     "nodes": [
       { "key": "total_income", "label": "총 노후 소득", "type": "income", "parent": null, "colorVar": "--chart-1" },
-      { "key": "solar", "label": "태양광 발전 수익", "value": 4000000, "type": "income", "parent": "total_income", "colorVar": "--chart-2", "slider": { "min": 2000000, "max": 6000000, "step": 10000 } },
-      { "key": "dividend", "label": "월 배당 수익", "value": 2500000, "type": "income", "parent": "total_income", "colorVar": "--chart-6", "slider": { "min": 1000000, "max": 4000000, "step": 10000 } },
-      { "key": "nps_husband", "label": "본인 국민연금", "value": 2200000, "type": "income", "parent": "total_income", "colorVar": "--chart-3", "slider": { "min": 1500000, "max": 4000000, "step": 10000 } },
-      { "key": "nps_wife", "label": "아내 국민연금", "value": 650000, "type": "income", "parent": "total_income", "colorVar": "--chart-4", "slider": { "min": 500000, "max": 1000000, "step": 10000 } },
-      { "key": "housing", "label": "주택연금", "value": 2000000, "type": "income", "parent": "total_income", "colorVar": "--chart-5", "slider": { "min": 1500000, "max": 3000000, "step": 10000 } },
-      { "key": "salary", "label": "급여소득", "value": 3700000, "type": "income", "parent": "total_income", "colorVar": "--tertiary", "slider": { "min": 0, "max": 5000000, "step": 10000 } },
-      { "key": "irp", "label": "개인 IRP 출금", "value": 100000, "type": "income", "parent": "total_income", "colorVar": "--secondary", "slider": { "min": 0, "max": 500000, "step": 10000 } },
-      { "key": "dc", "label": "퇴직연금 DC 출금", "value": 150000, "type": "income", "parent": "total_income", "colorVar": "--warning", "slider": { "min": 0, "max": 500000, "step": 10000 } }
+      { "key": "solar", "label": "태양광 발전 수익", "value": 4000000, "type": "income", "parent": "total_income", "colorVar": "--chart-2", "slider": { "min": 0, "max": 8000000, "step": 10000 } },
+      { "key": "dividend", "label": "월 배당 수익", "value": 2500000, "type": "income", "parent": "total_income", "colorVar": "--chart-6", "slider": { "min": 0, "max": 5000000, "step": 10000 } },
+      { "key": "nps_husband", "label": "국민연금(본인)", "value": 1600000, "type": "income", "parent": "total_income", "colorVar": "--chart-3", "slider": { "min": 0, "max": 4000000, "step": 10000 } },
+      { "key": "nps_wife", "label": "국민연금(아내)", "value": 600000, "type": "income", "parent": "total_income", "colorVar": "--chart-4", "slider": { "min": 0, "max": 4000000, "step": 10000 } },
+      { "key": "housing", "label": "주택연금", "value": 2000000, "type": "income", "parent": "total_income", "colorVar": "--chart-5", "slider": { "min": 0, "max": 4000000, "step": 10000 } },
+      { "key": "salary", "label": "급여소득", "value": 3500000, "type": "income", "parent": "total_income", "colorVar": "--tertiary", "slider": { "min": 0, "max": 9990000, "step": 10000 } },
+      { "key": "irp", "label": "개인 IRP 출금", "value": 100000, "type": "income", "parent": "total_income", "colorVar": "--secondary", "slider": { "min": 0, "max": 1000000, "step": 10000 } },
+      { "key": "dc", "label": "퇴직연금 DC 출금", "value": 150000, "type": "income", "parent": "total_income", "colorVar": "--warning", "slider": { "min": 0, "max": 2000000, "step": 10000 } }
     ]
   };
 
@@ -199,14 +194,14 @@
   let allVisibleNodes = [];
   let totalIn = 0;
 
-  // 모바일 화면 크기에 맞춘 동적 변수 세팅
+  // 모바일 화면 크기에 맞춘 동적 변수 세팅 (우측 텍스트 제거로 right 여백을 15로 축소)
   let SVG_W = window.innerWidth > 0 ? window.innerWidth - 20 : 392; 
   let SVG_H = 300;
   let PAD = { top: 10, bottom: 10, left: 95, right: 15 }; 
   const NODE_GAP = 8;
   const FLOW_OPACITY = 0.38;
 
-  // 숫자를 만원 단위로 표기
+  // 숫자를 만원 단위로 표기하도록 함수 변경
   function fmt(n) { 
     if (n >= 10000) {
       return '₩' + (n / 10000).toLocaleString('ko-KR') + '만';
