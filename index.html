@@ -101,12 +101,14 @@
     margin-right: 4px; flex-shrink: 0;
   }
   
-  .slider-control { display: flex; align-items: center; gap: 6px; }
+  /* 슬라이더와 텍스트 박스 간격 소폭 축소 */
+  .slider-control { display: flex; align-items: center; gap: 4px; }
   
   input[type="range"] {
     -webkit-appearance: none; appearance: none;
     flex: 1; height: 3px; background: transparent;
     border-radius: 999px; outline: none;
+    min-width: 0; /* 넘침 방지 */
   }
   input[type="range"]::-webkit-slider-runnable-track {
     height: 3px;
@@ -119,9 +121,10 @@
     margin-top: -8.5px;
   }
 
+  /* 금액 텍스트 박스 폭 축소 및 중앙 정렬 적용 */
   .slider-value {
     font-size: 11px; font-weight: var(--fw-medium);
-    width: 68px; flex-shrink: 0; text-align: right;
+    width: 56px; flex-shrink: 0; text-align: center;
     background: var(--surface-container); color: var(--on-surface-default);
     padding: 4px 6px; border-radius: 6px;
     border: 1px solid rgba(128,128,128,0.2);
@@ -141,7 +144,9 @@
     .center-val { font-size: 28px; }
     .slider-label { font-size: 11px; }
     .breakdown-title { font-size: 15px; }
-    .slider-value { font-size: 10px; width: 62px; padding: 4px; }
+    /* 모바일에서 금액 박스 폭 대폭 축소, 그리드 간격 좁힘 */
+    .slider-value { font-size: 10px; width: 48px; padding: 4px 2px; }
+    .slider-grid { gap: 12px 6px; } 
   }
 </style>
 </head>
@@ -194,7 +199,7 @@
   let allVisibleNodes = [];
   let totalIn = 0;
 
-  // 모바일 화면 크기에 맞춘 동적 변수 세팅 (우측 텍스트 제거로 right 여백을 15로 축소)
+  // 모바일 화면 크기에 맞춘 동적 변수 세팅
   let SVG_W = window.innerWidth > 0 ? window.innerWidth - 20 : 392; 
   let SVG_H = 300;
   let PAD = { top: 10, bottom: 10, left: 95, right: 15 }; 
